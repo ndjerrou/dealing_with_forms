@@ -1,21 +1,37 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 // import { useFormStatus } from 'react-dom';
 
 const AddUser = () => {
   // const { pending } = useFormStatus();
+
+  const hobbyInput = useRef();
+
   const [formData, setFormData] = useState({
     firstName: '',
     age: 0,
     isMajor: false,
     grade: 100,
+    hobby: '',
   });
 
+  const [hobbies, setHobbies] = useState([]);
+
+  // console.log(formData);
+  // console.log(hobbies);
   const handleFormData = e =>
     setFormData(prevState => ({
       ...prevState,
       [e.target.name]:
         e.target.type === 'checkbox' ? e.target.checked : e.target.value,
     }));
+
+  const addHobby = e => {
+    setHobbies(prevState => {
+      return [...prevState, formData.hobby];
+    });
+
+    setFormData(prevState => ({ ...prevState, hobby: '' }));
+  };
 
   const addUser = e => {
     e.preventDefault();
@@ -25,6 +41,7 @@ const AddUser = () => {
 
     // sending data to server
 
+    // reinit values of formula
     setFormData({
       firstName: '',
       age: 0,
@@ -38,7 +55,6 @@ const AddUser = () => {
       <div>
         <label>Firstname</label>
         <input
-          id='firstname'
           value={formData.firstName}
           onChange={handleFormData}
           name='firstName'
@@ -75,31 +91,19 @@ const AddUser = () => {
         </div>
       </div>
       <div>
-        {/* Ex */}
-        {/* @TODO: feature -->ajout un hobby */}
-        {/* le hobby apparaît en dessous */}
-        {/* je peux le supprimer en cliquant dessus */}
-        {/* reset la valeur de hobby dans le input */}
         <div>
           <label>Mes hobbies</label>
           <input
-            type='text'
-            // value=''
-            // onChange={handleFormData}
-            // name='grade'
+            value={formData.hobby}
+            onChange={handleFormData}
+            name='hobby'
+            style={{ width: '90px' }}
           />
+          <button type='button' onClick={addHobby}>
+            Add a hobby
+          </button>
         </div>
       </div>
-      {/* Ex */}
-      {/* @TODO: feature -->enable conditionnaly the btn */}
-      {/* le btn est activé si on a ajouté 3 amis */}
-
-      {/* Render conditionnaly some jsx */}
-      {false && (
-        <p style={{ color: 'red' }}>3 amis obligatoires avant soumission</p>
-      )}
-
-      {false ? <p>Salut</p> : <p>Aurevoir</p>}
       <button disabled>Add a user</button>
     </form>
   );
