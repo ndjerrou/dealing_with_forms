@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 const AddUser = () => {
   // const { pending } = useFormStatus();
 
-  const hobbyInput = useRef();
+  const hobbyInputRef = useRef();
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -31,6 +31,9 @@ const AddUser = () => {
     });
 
     setFormData(prevState => ({ ...prevState, hobby: '' }));
+
+    // getting hobby input via ref
+    hobbyInputRef.current.focus();
   };
 
   const addUser = e => {
@@ -98,6 +101,7 @@ const AddUser = () => {
             onChange={handleFormData}
             name='hobby'
             style={{ width: '90px' }}
+            ref={hobbyInputRef}
           />
           <button type='button' onClick={addHobby}>
             Add a hobby
