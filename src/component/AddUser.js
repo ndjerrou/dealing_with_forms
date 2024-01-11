@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react';
 // import { useFormStatus } from 'react-dom';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const AddUser = () => {
   // const { pending } = useFormStatus();
 
@@ -30,7 +33,7 @@ const AddUser = () => {
         return [...prevState, formData.hobby];
       });
     } else {
-      alert('vous avez déjà renseigné ce sport');
+      toast.error('Attention, sport déjà renseigné');
     }
 
     setFormData(prevState => ({ ...prevState, hobby: '' }));
@@ -119,6 +122,7 @@ const AddUser = () => {
             Add a hobby
           </button>
         </div>
+        <ToastContainer />
       </div>
       <div>
         {hobbies.map(hobby => (
