@@ -103,7 +103,11 @@ const AddUser = () => {
             style={{ width: '90px' }}
             ref={hobbyInputRef}
           />
-          <button type='button' onClick={addHobby}>
+          <button
+            disabled={formData.hobby.length < 3}
+            type='button'
+            onClick={addHobby}
+          >
             Add a hobby
           </button>
         </div>
