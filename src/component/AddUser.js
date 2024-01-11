@@ -24,10 +24,14 @@ const AddUser = () => {
     }));
 
   const addHobby = e => {
-    console.log('HERE');
-    setHobbies(prevState => {
-      return [...prevState, formData.hobby];
-    });
+    const duplicateHobby = hobbies.find(hobby => hobby === formData.hobby);
+    if (!duplicateHobby) {
+      setHobbies(prevState => {
+        return [...prevState, formData.hobby];
+      });
+    } else {
+      alert('vous avez déjà renseigné ce sport');
+    }
 
     setFormData(prevState => ({ ...prevState, hobby: '' }));
 
@@ -57,8 +61,6 @@ const AddUser = () => {
 
     // preparing data to server
   };
-
-  console.log(formData.hobby);
 
   return (
     <form onSubmit={addUser}>
