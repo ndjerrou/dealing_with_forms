@@ -63,7 +63,6 @@ const AddUser = () => {
           name='firstName'
         />
       </div>
-
       <div>
         <label>Age</label>
         <input
@@ -111,6 +110,11 @@ const AddUser = () => {
             Add a hobby
           </button>
         </div>
+      </div>
+      <div>
+        {hobbies.map(hobby => (
+          <button>{hobby}</button>
+        ))}
       </div>
       <button disabled>Add a user</button>
     </form>
