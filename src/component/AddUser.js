@@ -16,8 +16,6 @@ const AddUser = () => {
 
   const [hobbies, setHobbies] = useState([]);
 
-  // console.log(formData);
-  // console.log(hobbies);
   const handleFormData = e =>
     setFormData(prevState => ({
       ...prevState,
@@ -26,6 +24,7 @@ const AddUser = () => {
     }));
 
   const addHobby = e => {
+    console.log('HERE');
     setHobbies(prevState => {
       return [...prevState, formData.hobby];
     });
@@ -36,13 +35,17 @@ const AddUser = () => {
     hobbyInputRef.current.focus();
   };
 
+  const deleteHobby = clickedHobby => {
+    // const filteredHobbies = hobbies.filter(hobby => {
+    //   return hobby !== clickedHobby;
+    // });
+    const filteredHobbies = hobbies.filter(hobby => hobby !== clickedHobby);
+
+    setHobbies(filteredHobbies);
+  };
+
   const addUser = e => {
     e.preventDefault();
-    console.log('submit fired');
-
-    console.log(formData);
-
-    // sending data to server
 
     // reinit values of formula
     setFormData({
@@ -51,7 +54,11 @@ const AddUser = () => {
       isMajor: false,
       grade: 0,
     });
+
+    // preparing data to server
   };
+
+  console.log(formData.hobby);
 
   return (
     <form onSubmit={addUser}>
@@ -113,7 +120,23 @@ const AddUser = () => {
       </div>
       <div>
         {hobbies.map(hobby => (
-          <button>{hobby}</button>
+          <div
+            key={hobby}
+            style={{ padding: '6px', backgroundColor: 'gold', width: '2Opx' }}
+          >
+            {hobby}
+            <span
+              style={{
+                backgroundColor: 'red',
+                marginLeft: '10px',
+                cursor: 'pointer',
+                border: 'none',
+              }}
+              onClick={() => deleteHobby(hobby)}
+            >
+              <i className='fa-solid fa-delete-left'></i>
+            </span>
+          </div>
         ))}
       </div>
       <button disabled>Add a user</button>
@@ -122,9 +145,3 @@ const AddUser = () => {
 };
 
 export default AddUser;
-
-// Refacto avec un seul objet pour le state
-// Event Submit
-// Envoi data ver serveurs
-// Ajouter des amis dans le formulaire
-// time for crud ?
